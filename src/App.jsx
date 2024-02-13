@@ -1,16 +1,36 @@
+import { useState } from "react";
 import "./App.css";
 import config from "./config/config";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import authService from "./Appwrite/auth";
+import { login } from "./feature/authSlice";
+
 function App() {
-  // console.log(config.appwriteUrl);
-  // console.log(config.appwriteDatabaseId);
-  // console.log(config.appwriteProjectId);
-  // console.log(config.appwriteCollectionId);
-  // console.log(config.appwriteBucketId);
-  return (
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    authService
+      .getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login({ userData }));
+        } else {
+          dispatch(logout());
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  return !loading ? (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <div>
+        <div>
+          <main>TODO</main>
+        </div>
+      </div>
     </>
-  );
+  ) : null;
 }
 
 export default App;
