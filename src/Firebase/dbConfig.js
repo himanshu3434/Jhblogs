@@ -1,79 +1,81 @@
 import config from "../config/config";
 import { auth, db } from "./fb_Config";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  deleteDoc,
+  getDocs,
+  updateDoc,
+  getDoc,
+  query,
+  where,
+} from "firebase/firestore";
 export class DBService {
   async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
-      return await this.database.createDocument(
-        config.appwriteDatabaseId,
-        config.appwriteCollectionId,
-        slug,
-        {
-          title,
-          content,
-          featuredImage,
-          status,
-          userId,
-        }
-      );
+      return await setDoc(doc(db, "blogs", slug), {
+        title: title,
+        content: content,
+        featuredImage: featuredImage,
+        status: status,
+        userId: userId,
+      });
     } catch (error) {
-      console.log("AppWrite error || {Create Post} : ", error);
+      console.log("FB error || {Create Post} : ", error);
       return false;
     }
   }
 
   async updatePost(slug, { title, content, featuredImage, status }) {
     try {
-      return await this.database.updateDocument(
-        config.appwriteDatabaseId,
-        config.appwriteCollectionId,
-        slug,
-        {
-          title,
-          content,
-          featuredImage,
-          status,
-        }
-      );
+      await updateDoc(doc(db, "blogs", slug), {
+        title: title,
+        content: content,
+        featuredImage: featuredImage,
+        status: status,
+      });
     } catch (error) {
-      console.log("AppWrite error || {Update Post} : ", error);
+      console.log("FB error || {Update Post} : ", error);
       return false;
     }
   }
   async deletePost(slug) {
     try {
-      await this.database.deleteDocument(
-        config.appwriteDatabaseId,
-        config.appwriteCollectionId,
-        slug
-      );
+      await deleteDoc(doc(db, "blogs", slug));
 
       return true;
     } catch (error) {
-      console.log("AppWrite error || {delete Post} : ", error);
+      console.log("FB error || {delete Post} : ", error);
       return false;
     }
   }
   async getPost(slug) {
     try {
-      return await this.database.getDocument(
-        config.appwriteDatabaseId,
-        config.appwriteCollectionId,
-        slug
-      );
+      const docRef = doc(db, "blogs", slug);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data();
+      } else {
+        // docSnap.data() will be undefined in this case
+        // console.log("No such document!");
+        return null;
+      }
     } catch (error) {
-      console.log("AppWrite error || {Get Post} : ", error);
+      console.log("FB error || {Get Post} : ", error);
       return false;
     }
   }
-  async getPosts(query = [Query.equal("status", "active")]) {
+  async getPosts() {
     try {
-      return await this.database.getDocument(
-        config.appwriteDatabaseId,
-        config.appwriteCollectionId,
-        query
-      );
+      const blogRef = collection(db, "blogs");
+
+      const q = query(blogRef, where("status", "==", "active"));
+      return q;
     } catch (error) {
-      console.log("AppWrite error || {Get Posts} : ", error);
+      console.log("FB error || {Get Posts} : ", error);
       return false;
     }
   }
