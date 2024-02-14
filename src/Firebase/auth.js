@@ -39,7 +39,6 @@ export class AuthService {
       // console.log("AppWrite error || {get current user} : ", error);
       throw error;
     }
-    return null;
   }
   async logout() {
     try {

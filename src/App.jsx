@@ -3,8 +3,8 @@ import "./App.css";
 import config from "./config/config";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import authService from "./Appwrite/auth";
-import { login } from "./feature/authSlice";
+import authService from "./Firebase/auth";
+import { login, logout } from "./feature/authSlice";
 
 function App() {
   const [loading, setLoading] = useState(true);
