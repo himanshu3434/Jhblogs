@@ -9,11 +9,13 @@ import PostCard from "./PostCard";
 import Select from "./Select";
 import Login from "./Login";
 import Signup from "./Signup";
+import RTE from "./RTE";
 export {
   Header,
   Footer,
   Logo,
   Container,
+  RTE,
   LogoutBtn,
   Input,
   Button,
