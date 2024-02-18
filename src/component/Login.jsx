@@ -16,8 +16,10 @@ function Login() {
     try {
       const session = await authService.login(data);
       if (session) {
-        const userData = await authService.getCurrentUser();
-        dispatch(storeLogin(userData));
+        const data = await authService.getCurrentUser();
+        const userData = data.uid;
+        console.log("login compo ", userData);
+        dispatch(storeLogin({ userData }));
         navigate("/");
       }
     } catch (error) {

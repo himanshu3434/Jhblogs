@@ -16,5 +16,5 @@ export default function Protected({ children, authentication = true }) {
     setLoader(false);
   }, [authStatus, authentication, navigate]);
 
-  return loader ? <h1>Loading</h1> : <>{childer}</>;
+  return loader ? <h1>Loading</h1> : <>{children}</>;
 }

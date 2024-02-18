@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Input, Button, Select } from "../index";
+import { Input, Button, Select, RTE } from "../index";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import bucketService from "../../Appwrite/storage";
@@ -38,9 +38,10 @@ function PostForm({ post }) {
         : null;
       if (file) {
         data.featuredImage = file.$id;
+        console.log(":user datattttt", userData);
         const dbPost = dbService.createPost({
           ...data,
-          userId: userData.$id,
+          userId: userData,
         });
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
@@ -95,7 +96,7 @@ function PostForm({ post }) {
         <RTE
           label="Content :"
           name="content"
-          control={control}
+          controls={control}
           defaultValue={getValues("content")}
         />
       </div>

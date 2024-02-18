@@ -46,7 +46,7 @@ function Header() {
           {navItem.map((item) =>
             item.active ? (
               <li key={item.name}>
-                <button onClick={() => navigate(slug)}>{item.name}</button>
+                <button onClick={() => navigate(item.slug)}>{item.name}</button>
               </li>
             ) : null
           )}

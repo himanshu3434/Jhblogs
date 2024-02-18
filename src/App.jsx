@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import authService from "./Firebase/auth";
 import { login, logout } from "./feature/authSlice";
+import { Footer, Header } from "./component/index";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -26,7 +28,12 @@ function App() {
     <>
       <div>
         <div>
-          <main>TODO</main>
+          <Header />
+          <main>
+            Todo
+            <Outlet />
+          </main>
+          <Footer />
         </div>
       </div>
     </>

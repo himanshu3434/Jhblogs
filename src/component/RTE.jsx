@@ -1,13 +1,13 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-
+import { Editor } from "@tinymce/tinymce-react";
 function RTE({ name, controls, label, defaultValue = "" }) {
   return (
     <div>
       {label && <label className="">{label}</label>}
       <Controller
         name={name || "content"}
-        controls={controls}
+        control={controls}
         render={({ field: { onChange } }) => (
           <Editor
             initialValue={defaultValue}
