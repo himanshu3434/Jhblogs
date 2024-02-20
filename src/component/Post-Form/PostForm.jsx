@@ -17,7 +17,9 @@ function PostForm({ post }) {
       },
     });
   const navigate = useNavigate();
+
   const userData = useSelector((state) => state.auth.userData);
+
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
@@ -38,10 +40,10 @@ function PostForm({ post }) {
         : null;
       if (file) {
         data.featuredImage = file.$id;
-        console.log(":user datattttt", userData);
+
         const dbPost = dbService.createPost({
           ...data,
-          userId: userData,
+          userId: userData.$id,
         });
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
@@ -111,7 +113,7 @@ function PostForm({ post }) {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={bucketService.getImagePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />

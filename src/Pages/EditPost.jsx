@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import dbService from "../Appwrite/conf";
 import { useNavigate, useParams } from "react-router-dom";
-import { PostForm } from "../component";
+import { PostForm, Container } from "../component";
 
 function EditPost() {
   const [post, setPost] = useState(null);
-  const { slug } = useParams;
+  const { slug } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     dbService.getPost(slug).then((post) => {

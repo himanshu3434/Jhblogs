@@ -13,7 +13,7 @@ export default function Post() {
 
   const userData = useSelector((state) => state.auth.userData);
 
-  const isAuthor = post && userData ? post.userId === userData : false;
+  const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
     if (slug) {
@@ -27,7 +27,7 @@ export default function Post() {
   const deletePost = () => {
     dbService.deletePost(post.$id).then((status) => {
       if (status) {
-        bucketService.deleteFile(post.featuredImage);
+        bucketService.deleteImage(post.featuredImage);
         navigate("/");
       }
     });

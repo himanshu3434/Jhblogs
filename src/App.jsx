@@ -3,7 +3,7 @@ import "./App.css";
 import config from "./config/config";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import authService from "./Firebase/auth";
+import authService from "./Appwrite/auth";
 import { login, logout } from "./feature/authSlice";
 import { Footer, Header } from "./component/index";
 import { Outlet } from "react-router-dom";

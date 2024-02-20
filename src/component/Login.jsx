@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import authService from "../Firebase/auth";
+import authService from "../Appwrite/auth";
 import { login as storeLogin } from "../feature/authSlice";
 import { useForm } from "react-hook-form";
 import { Input, Logo, Button } from "./index";
@@ -16,9 +16,8 @@ function Login() {
     try {
       const session = await authService.login(data);
       if (session) {
-        const data = await authService.getCurrentUser();
-        const userData = data.uid;
-        console.log("login compo ", userData);
+        const userData = await authService.getCurrentUser();
+        console.log("login user Data ", userData);
         dispatch(storeLogin({ userData }));
         navigate("/");
       }

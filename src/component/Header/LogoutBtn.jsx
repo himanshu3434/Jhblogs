@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../feature/authSlice";
-import authService, { AuthService } from "../../Firebase/auth";
+import authService from "../../Appwrite/auth";
 function LogoutBtn() {
   const dispatcher = useDispatch();
   const logoutHandler = () => {

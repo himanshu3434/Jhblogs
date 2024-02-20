@@ -10,11 +10,13 @@ function AllPost() {
     <div>
       <Container>
         <div className="py-8">
-          {Post.map((current) => (
-            <div key={current.$id}>
-              <PostCard post={current} />
-            </div>
-          ))}
+          {Post.map((current) => {
+            return (
+              <div key={current.$id}>
+                <PostCard {...current} />
+              </div>
+            );
+          })}
         </div>
       </Container>
     </div>

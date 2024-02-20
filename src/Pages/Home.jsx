@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Container, PostCard } from "../component";
 import dbService from "../Appwrite/conf";
+import { useSelector } from "react-redux";
 
 function Home() {
   const [post, setPost] = useState([]);
+  const AuthStatus = useSelector((state) => state.auth.status);
   useEffect(() => {
     dbService.getPosts([]).then((posts) => setPost(posts.documents));
   }, []);
 
-  if (post.length === 0) {
+  if (post.length === 0 || AuthStatus === false) {
     return (
       <>
         <div>Login to React Post</div>

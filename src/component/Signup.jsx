@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import authService from "../Firebase/auth";
+import authService from "../Appwrite/auth";
 import { login as storeLogin } from "../feature/authSlice";
 import { useForm } from "react-hook-form";
 import { Input, Logo, Button } from "./index";
