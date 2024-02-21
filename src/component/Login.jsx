@@ -27,47 +27,53 @@ function Login() {
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <h1>sign in to your account </h1>
+    <div className="">
+      <div className=" w-[350px] h-[400px] rounded-xl p-5 mt-10 mb-10 ml-auto mr-auto bg-gray-500 text-white">
+        <div className="text-3xl mb-4 text-center text-bold ">
+          <h1 calssName="">Sign in</h1>
         </div>
         <div>
-          <p>Don't have a Account</p>
-          <Link to="/signup">
-            <div>Sign Up</div>
-          </Link>
-        </div>
-        <div>
-          {error && <div>Error Problem :{error}</div>}
-          <form onSubmit={handleSubmit(login)}>
-            <div>
-              <Input
-                label="Email :"
-                type="email"
-                placeholder="Enter your Email address"
-                {...register("email", {
-                  required: true,
-                  validate: {
-                    matchPatern: (value) =>
-                      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-                        value
-                      ) || "Email address must be a valid address",
-                  },
-                })}
-              ></Input>
-              <Input
-                label="Password :"
-                type="password"
-                placeholder="Enter your Password address"
-                {...register("password", {
-                  required: true,
-                })}
-              ></Input>
+          <div>
+            {error && <div>Error Problem :{error}</div>}
+            <form onSubmit={handleSubmit(login)}>
+              <div>
+                <Input
+                  label="Email "
+                  type="email"
+                  placeholder="Enter your Email address"
+                  {...register("email", {
+                    required: true,
+                    validate: {
+                      matchPatern: (value) =>
+                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+                          value
+                        ) || "Email address must be a valid address",
+                    },
+                  })}
+                ></Input>
+                <Input
+                  label="Password "
+                  type="password"
+                  placeholder="Enter your Password address"
+                  {...register("password", {
+                    required: true,
+                  })}
+                ></Input>
 
-              <Button type="submit">Log In</Button>
-            </div>
-          </form>
+                <Button type="submit">Log In</Button>
+              </div>
+            </form>
+          </div>
+
+          <div
+            className="flex justify-center  mt-5 pt-5
+          "
+          >
+            <p>Don't have a Account ? </p>
+            <Link to="/signup">
+              <div className="pl-1 underline text-blue-200">Sign Up</div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

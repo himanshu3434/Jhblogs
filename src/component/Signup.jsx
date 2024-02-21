@@ -27,9 +27,9 @@ function Signup() {
 
   return (
     <div>
-      <div>
-        <div>
-          <h1>sign up to your account </h1>
+      <div className="w-[350px] h-[450px] rounded-xl p-5 mt-10 mb-10 ml-auto mr-auto bg-gray-500 text-white">
+        <div className="text-3xl mb-4 text-center text-bold">
+          <h1>Sign up </h1>
         </div>
 
         <div>
@@ -37,7 +37,7 @@ function Signup() {
           <form onSubmit={handleSubmit(signup)}>
             <div>
               <Input
-                label="Full Name :"
+                label="Full Name "
                 placeholder="Enter your Full Name"
                 {...register("Full Name", {
                   required: true,
@@ -45,7 +45,7 @@ function Signup() {
               />
 
               <Input
-                label="Email :"
+                label="Email "
                 type="email"
                 placeholder="Enter your Email address"
                 {...register("email", {
@@ -59,7 +59,7 @@ function Signup() {
                 })}
               ></Input>
               <Input
-                label="Password :"
+                label="Password "
                 type="password"
                 placeholder="Enter your Password address"
                 {...register("password", {
@@ -70,6 +70,16 @@ function Signup() {
               <Button type="submit">Create Account</Button>
             </div>
           </form>
+        </div>
+
+        <div
+          className="flex justify-center  mt-5 
+          "
+        >
+          <p>Already have a Account? </p>
+          <Link to="/login">
+            <div className="pl-1 underline text-blue-200">Sign in</div>
+          </Link>
         </div>
       </div>
     </div>

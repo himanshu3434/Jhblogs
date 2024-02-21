@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 function RTE({ name, controls, label, defaultValue = "" }) {
   return (
-    <div>
+    <div className="text-white">
       {label && <label className="">{label}</label>}
       <Controller
         name={name || "content"}
@@ -15,6 +15,8 @@ function RTE({ name, controls, label, defaultValue = "" }) {
               initialValue: defaultValue,
               height: 500,
               menubar: true,
+              skin: "oxide-dark",
+              content_css: "dark",
               plugins: [
                 "image",
                 "advlist",

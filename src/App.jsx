@@ -26,14 +26,15 @@ function App() {
 
   return !loading ? (
     <>
-      <div>
+      <div className="  bg-gray-800 ">
         <div>
           <Header />
           <main>
-            Todo
             <Outlet />
           </main>
-          <Footer />
+          <div>
+            <Footer />
+          </div>
         </div>
       </div>
     </>

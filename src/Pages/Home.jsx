@@ -10,25 +10,31 @@ function Home() {
     dbService.getPosts([]).then((posts) => setPost(posts.documents));
   }, []);
 
-  if (post.length === 0 || AuthStatus === false) {
+  if (post.length === 0) {
     return (
       <>
-        <div>Login to React Post</div>
+        <div className="w-full  ">
+          <div className="">
+            <div>
+              <div></div>
+              <button></button>
+            </div>
+            <div></div>
+          </div>
+        </div>
       </>
     );
   }
   return (
-    <div>
-      <Container>
-        <div>
-          {post.map((current) => (
-            <div key={current.$id}>
-              {/* <PostCard post={current} /> */}
-              <PostCard {...current} />
-            </div>
-          ))}
-        </div>
-      </Container>
+    <div className="">
+      <div className="grid grid-cols-1  md:grid-cols-3 lr:grid-cols-4 xl:grid-cols-6  sm:px-[20px] lg:px-[180px] ">
+        {post.map((current) => (
+          <div key={current.$id}>
+            {/* <PostCard post={current} /> */}
+            <PostCard {...current} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
