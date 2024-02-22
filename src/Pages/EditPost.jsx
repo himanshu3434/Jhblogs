@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import dbService from "../Appwrite/conf";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostForm, Container } from "../component";
+import { useSelector } from "react-redux";
 
 function EditPost() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
+  const posts = useSelector((state) => state.post.posts);
   useEffect(() => {
-    dbService.getPost(slug).then((post) => {
-      if (post) setPost(post);
-      else navigate("/");
+    posts.map((currentPost) => {
+      if (currentPost.$id === slug) {
+        setPost(currentPost);
+      }
+      return;
     });
   }, [slug, navigate]);
   return post ? (

@@ -2,9 +2,10 @@ import React, { useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Input, Button, Select, RTE } from "../index";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import bucketService from "../../Appwrite/storage";
 import dbService from "../../Appwrite/conf";
+import { storePost } from "../../feature/postSlice";
 
 function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, getValues, control } =
@@ -17,6 +18,14 @@ function PostForm({ post }) {
       },
     });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const updateStore = async () => {
+    await dbService.getPosts([]).then((posts) => {
+      const allPosts = posts.documents;
+
+      dispatch(storePost({ allPosts }));
+    });
+  };
 
   const userData = useSelector((state) => state.auth.userData);
 
@@ -33,7 +42,10 @@ function PostForm({ post }) {
         featuredImage: file ? file.$id : undefined,
       });
 
-      if (dbfile) navigate(`/post/${dbfile.$id}`);
+      if (dbfile) {
+        updateStore();
+        navigate(`/post/${dbfile.$id}`);
+      }
     } else {
       const file = data.image[0]
         ? await bucketService.uploadImage(data.image[0])
@@ -41,12 +53,14 @@ function PostForm({ post }) {
       if (file) {
         data.featuredImage = file.$id;
 
-        const dbPost = dbService.createPost({
+        const dbPost = await dbService.createPost({
           ...data,
           userId: userData.$id,
         });
         if (dbPost) {
-          navigate(`/post/${dbPost.$id}`);
+          updateStore();
+
+          navigate(`/`);
         }
       }
     }

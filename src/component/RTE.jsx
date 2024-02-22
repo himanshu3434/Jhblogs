@@ -15,6 +15,7 @@ function RTE({ name, controls, label, defaultValue = "" }) {
               initialValue: defaultValue,
               height: 500,
               menubar: true,
+
               skin: "oxide-dark",
               content_css: "dark",
               plugins: [

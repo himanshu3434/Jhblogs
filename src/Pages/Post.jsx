@@ -3,8 +3,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import dbService from "../Appwrite/conf";
 import { Button, Container } from "../component";
 import parse from "html-react-parser";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import bucketService from "../Appwrite/storage";
+import { storePost } from "../feature/postSlice";
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -12,22 +13,32 @@ export default function Post() {
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
-
+  const dispatch = useDispatch();
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+  const updateStore = async () => {
+    await dbService.getPosts([]).then((posts) => {
+      const allPosts = posts.documents;
+
+      dispatch(storePost({ allPosts }));
+    });
+  };
+
+  const posts = useSelector((state) => state.post.posts);
   useEffect(() => {
-    if (slug) {
-      dbService.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
-      });
-    } else navigate("/");
+    posts.map((currentPost) => {
+      if (currentPost.$id === slug) {
+        setPost(currentPost);
+      }
+      return;
+    });
   }, [slug, navigate]);
 
   const deletePost = () => {
     dbService.deletePost(post.$id).then((status) => {
       if (status) {
         bucketService.deleteImage(post.featuredImage);
+        updateStore();
         navigate("/");
       }
     });

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container, PostCard } from "../component";
-import dbService from "../Appwrite/conf";
+
+import { useSelector } from "react-redux";
 function AllPost() {
-  const [Post, setPost] = useState([]);
-  useEffect(() => {
-    dbService.getPosts([]).then((posts) => setPost(posts.documents));
-  }, []);
+  const Post = useSelector((state) => state.post.posts);
+
   return (
     <div>
       <Container>

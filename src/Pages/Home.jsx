@@ -4,22 +4,19 @@ import dbService from "../Appwrite/conf";
 import { useSelector } from "react-redux";
 
 function Home() {
-  const [post, setPost] = useState([]);
   const AuthStatus = useSelector((state) => state.auth.status);
-  useEffect(() => {
-    dbService.getPosts([]).then((posts) => setPost(posts.documents));
-  }, []);
+  const post = useSelector((state) => state.post.posts);
 
   if (post.length === 0) {
     return (
       <>
         <div className="w-full  ">
           <div className="">
-            <div>
-              <div></div>
-              <button></button>
+            <div className=" h-[300px]  flex justify-center items-center ">
+              <div className="text-3xl text-white  ">
+                There is No Post Yet be The First to Create It{" "}
+              </div>
             </div>
-            <div></div>
           </div>
         </div>
       </>

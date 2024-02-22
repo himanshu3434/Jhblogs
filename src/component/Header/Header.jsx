@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Logo, LogoutBtn } from "../index";
 import { useSelector } from "react-redux";
-import close from "../../assets/close.svg";
-import menu from "../../assets/menu.svg";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);

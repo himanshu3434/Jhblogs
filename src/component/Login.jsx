@@ -17,7 +17,7 @@ function Login() {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        console.log("login user Data ", userData);
+
         dispatch(storeLogin({ userData }));
         navigate("/");
       }
@@ -30,7 +30,7 @@ function Login() {
     <div className="">
       <div className=" w-[350px] h-[400px] rounded-xl p-5 mt-10 mb-10 ml-auto mr-auto bg-gray-500 text-white">
         <div className="text-3xl mb-4 text-center text-bold ">
-          <h1 calssName="">Sign in</h1>
+          <h1 className="">Sign in</h1>
         </div>
         <div>
           <div>
