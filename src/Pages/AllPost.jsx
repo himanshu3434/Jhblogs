@@ -8,7 +8,7 @@ function AllPost() {
   return (
     <div>
       <Container>
-        <div className="grid grid-cols-1  md:grid-cols-3 lr:grid-cols-4 xl:grid-cols-6  sm:px-[20px] lg:px-[180px]">
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  sm:px-[20px] lg:px-[180px]">
           {Post.map((current) => {
             return (
               <div key={current.$id}>
