@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Container, PostCard } from "../component";
 import dbService from "../Appwrite/conf";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { storePost } from "../feature/postSlice";
 
 function Home() {
   const AuthStatus = useSelector((state) => state.auth.status);
-  const post = useSelector((state) => state.post.posts);
+  const dispatch = useDispatch();
+  const [post, setPost] = useState(undefined);
 
-  if (post.length === 0) {
+  useEffect(() => {
+    dbService.getPosts([]).then((posts) => {
+      const allPosts = posts.documents;
+
+      dispatch(storePost({ allPosts }));
+      setPost(allPosts);
+    });
+  }, []);
+
+  if (!post || !AuthStatus) {
     return (
       <>
         <div className="w-full  ">
           <div className="">
             <div className=" h-[300px]  flex justify-center items-center ">
-              <div className="text-3xl text-white  ">
-                There is No Post Yet be The First to Create It{" "}
-              </div>
+              <div className="text-3xl text-white  ">Login to Read Post </div>
             </div>
           </div>
         </div>

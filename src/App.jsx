@@ -14,22 +14,22 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    authService
-      .getCurrentUser()
-      .then((userData) => {
-        if (userData) {
-          dispatch(login({ userData }));
-        } else {
-          dispatch(logout());
-        }
+    authService.getCurrentUser().then((userData) => {
+      if (userData) {
+        dispatch(login({ userData }));
+      } else {
+        dispatch(logout());
+      }
+    });
+
+    dbService
+      .getPosts([])
+      .then((posts) => {
+        const allPosts = posts.documents;
+
+        dispatch(storePost({ allPosts }));
       })
       .finally(() => setLoading(false));
-
-    dbService.getPosts([]).then((posts) => {
-      const allPosts = posts.documents;
-
-      dispatch(storePost({ allPosts }));
-    });
   }, []);
 
   return !loading ? (
@@ -46,7 +46,11 @@ function App() {
         </div>
       </div>
     </>
-  ) : null;
+  ) : (
+    <>
+      <div>Loading</div>
+    </>
+  );
 }
 
 export default App;
