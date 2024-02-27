@@ -3,7 +3,6 @@ import { Controller } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 import config from "../config/config";
 function RTE({ name, controls, label, defaultValue = "" }) {
-  console.log("  idd ", config.tinymceId);
   return (
     <div className="text-white">
       {label && <label className="">{label}</label>}
