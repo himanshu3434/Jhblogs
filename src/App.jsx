@@ -9,6 +9,7 @@ import { Footer, Header } from "./component/index";
 import { Outlet } from "react-router-dom";
 import dbService from "./Appwrite/conf";
 import { storePost } from "./feature/postSlice";
+import GenericLoader from "./component/GenericLoader";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -48,7 +49,7 @@ function App() {
     </>
   ) : (
     <>
-      <div>Loading</div>
+      <GenericLoader />
     </>
   );
 }
