@@ -5,41 +5,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { storePost } from "../feature/postSlice";
 
 function Home() {
-  const AuthStatus = useSelector((state) => state.auth.status);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const [post, setPost] = useState(undefined);
 
   useEffect(() => {
     dbService.getPosts([]).then((posts) => {
       const allPosts = posts.documents;
-
+      console.log("allPosts", allPosts);
       dispatch(storePost({ allPosts }));
       setPost(allPosts);
+      setLoading(false);
     });
   }, []);
 
-  if (!post || !AuthStatus) {
-    return (
-      <>
-        <div className="w-full  ">
-          <div className="">
-            <div className=" h-[300px]  flex justify-center items-center ">
-              <div className="text-3xl text-white  ">Login to Read Post </div>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
-  return (
+  return loading ? (
+    <div>Loading...</div>
+  ) : (
     <div className="">
-      <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  sm:px-[20px] lg:px-[180px] ">
-        {post.map((current) => (
-          <div key={current.$id}>
-            {/* <PostCard post={current} /> */}
-            <PostCard {...current} />
-          </div>
-        ))}
+      <div className=" flex flex-col sm:flex-row justify-center sm:justify-normal items-center sm:items-baseline  flex-wrap px-4">
+        {post &&
+          post.map((current) => {
+            const timestamp = current.$createdAt;
+            console.log("timestamp", timestamp);
+            const date = new Date(timestamp);
+            const options = {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            };
+
+            const dateStr = new Intl.DateTimeFormat("en-US", options).format(
+              date
+            );
+
+            return (
+              <div key={current.$id}>
+                {/* <PostCard post={current} /> */}
+                <PostCard {...current} dateStr={dateStr} />
+              </div>
+            );
+          })}
       </div>
     </div>
   );

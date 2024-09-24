@@ -23,11 +23,7 @@ function Header() {
       slug: "/signup",
       active: !authStatus,
     },
-    {
-      name: "All Posts",
-      slug: "/all-posts",
-      active: authStatus,
-    },
+
     {
       name: "Add Post",
       slug: "/add-post",
@@ -36,7 +32,7 @@ function Header() {
   ];
 
   return (
-    <header className="w-full  sm:px-[20px] lg:px-[180px]">
+    <header className="w-full sm:px-[20px] lg:px-[180px] shadow-lg bg-[#2F3136]">
       <Container>
         <nav className=" flex justify-between items-center text-white">
           <div className=" pl-5 ">
@@ -50,7 +46,7 @@ function Header() {
                 <li key={item.name}>
                   <button
                     onClick={() => navigate(item.slug)}
-                    className="mr-1 sm:mr-5 hover:bg-blue-500 rounded-lg p-3"
+                    className="mr-1 sm:mr-5 hover:text-[#89b4f6] rounded-lg p-3 "
                   >
                     {item.name}
                   </button>
@@ -58,7 +54,7 @@ function Header() {
               ) : null
             )}
             {authStatus && (
-              <li className=" hover:bg-blue-500 rounded-lg p-3">
+              <li className=" hover:text-[#89b4f6] rounded-lg p-3 ">
                 <LogoutBtn />
               </li>
             )}

@@ -34,7 +34,7 @@ function App() {
 
   return !loading ? (
     <>
-      <div className="  bg-gray-800 ">
+      <div className="   bg-[#202225] font-sans">
         <div>
           <Header />
           <main>
